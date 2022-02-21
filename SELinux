@@ -1,0 +1,9 @@
+---
+- hosts: group1
+  tasks:
+  - name: Enable SELinux
+    selinux:
+      state: enabled
+  - debug:
+      Imsg: "Selinux Enabled. Please restart the server to apply changes."
+    when: enable_selinux.changed == true
