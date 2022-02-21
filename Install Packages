@@ -1,0 +1,13 @@
+---
+- name: Install packages
+  hosts: all 
+  become: true
+  gather_facts: false
+  
+  tasks: 
+    - name: Install packages
+      yum:
+        name:
+        - tmux
+        - bash-completion
+        state: latest
