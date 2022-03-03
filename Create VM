@@ -1,0 +1,42 @@
+---
+- name: Create VM on RHV-Manager
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - rhv-manager.yml
+    - password.yml
+
+  pre_tasks:
+    - name: Login to oVirt
+      redhat.rhv.ovirt_auth:
+        url: "{{ engine_url }}"
+        username: "{{ engine_user }}"
+        ca_file: "{{ rhvm_cafile | default(omit) }}"
+        password: "{{ engine_password }}"
+
+      tags:
+        - always
+
+  tasks:
+    - name: Create new virtal machine from template and run VM
+      redhat.rhv.ovirt_vm:
+        auth: "{{ ovirt_auth }}"
+        name: "{{ vm_name }}"
+        template: "{{ template }}"
+        use_latest_template_version: true
+        cluster: "{{ cluster }}"
+        state: running
+        wait: yes
+
+  post_tasks:
+    - name: Logout from oVirt
+      redhat.rhv.ovirt_auth:
+        state: absent
+        ovirt_auth: "{{ ovirt_auth }}"
+      tags:
+        - always
+
+  collections:
+    - redhat.rhv
