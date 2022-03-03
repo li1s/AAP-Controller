@@ -4,6 +4,7 @@
   tasks:
     - name: newbie exists with UID 4000
       user:
-        name: TestUser1
+        name: Student{1..50}
         uid: 4000
+        group: Student-Ansible
         state: present
