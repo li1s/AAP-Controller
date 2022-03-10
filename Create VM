@@ -2,31 +2,27 @@
 - name: Create VM on RHV-Manager
   hosts: localhost
   connection: local
-  gather_facts: false
-
-  vars_files:
-    - rhv-manager.yml
-    - password.yml
+  gather_facts: true
 
   pre_tasks:
     - name: Login to oVirt
       redhat.rhv.ovirt_auth:
-        url: "{{ engine_url }}"
-        username: "{{ engine_user }}"
+        url: https://rhv-manager.srv.mont.lab/ovirt-engine/api
+        username: admin@internal
         ca_file: "{{ rhvm_cafile | default(omit) }}"
-        password: "{{ engine_password }}"
+        password: 123qweASD
 
       tags:
         - always
 
   tasks:
-    - name: Create new virtal machine from template and run VM
+    - name: Create new virtal machine from template
       redhat.rhv.ovirt_vm:
         auth: "{{ ovirt_auth }}"
-        name: "{{ vm_name }}"
-        template: "{{ template }}"
+        name: sl-test-vm{1..10}
+        template: RHEL-8.5
         use_latest_template_version: true
-        cluster: "{{ cluster }}"
+        cluster: Mont-Cluster
         state: running
         wait: yes
 
