@@ -5,12 +5,12 @@
   gather_facts: true
 
   pre_tasks:
-    - name: Login to oVirt
-      redhat.rhv.ovirt_auth:
-        url: https://rhv-manager.srv.mont.lab/ovirt-engine/api
-        username: admin@internal
-        ca_file: "{{ rhvm_cafile | default(omit) }}"
-        password: 123qweASD
+   # - name: Login to oVirt
+      #redhat.rhv.ovirt_auth:
+        #url: https://rhv-manager.srv.mont.lab/ovirt-engine/api
+    - name: Obtain SSO token
+      ovirt_auth:
+        state: present
 
       tags:
         - always
