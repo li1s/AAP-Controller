@@ -10,6 +10,7 @@
         #url: https://rhv-manager.srv.mont.lab/ovirt-engine/api
     - name: Obtain SSO token
       ovirt_auth:
+        url: https://rhv-manager.srv.mont.lab/ovirt-engine/api
         state: present
 
       tags:
