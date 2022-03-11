@@ -19,7 +19,7 @@
     - name: Create new virtal machine from template
       redhat.rhv.ovirt_vm:
         auth: "{{ ovirt_auth }}"
-        name: sl-test-vm{1..10}
+        name: sl-test-vm
         template: RHEL-8.5
         use_latest_template_version: true
         cluster: Mont-Cluster
