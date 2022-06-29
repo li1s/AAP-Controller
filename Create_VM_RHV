@@ -7,7 +7,7 @@
   pre_tasks:
     - name: Login to oVirt
       redhat.rhv.ovirt_auth:
-        url: https://rhv-manager.srv.mont.lab/ovirt-engine/api
+        url: "{{ engine_url }}"
         username: "{{ engine_user }}"
         password: "{{ engine_password }}"
         ca_file: "{{ rhvm_cafile | default(omit) }}"
